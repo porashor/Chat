@@ -19,7 +19,33 @@ app.post("/sign", async (req, res) => {
             email: email,
             password: hashedPass
         });
-        res.status(200).send("user created successfully");
+        if(!user){
+            res.status(400).send("user not created");
+        }else{
+            const token = jwt.sign({email: user.email}, process.env.SECRET_KEY);
+            res.status(200).send({token: token});
+        }
+    }catch(err){
+        res.status(400).send("not sign in");
+    }
+})
+app.post("/login", async (req, res) => {
+    const { email, password} = req.body;
+    try{
+        const user = await User.findOne({
+            email: email
+        });
+        if(user){
+            const validPass = await bcrypt.compare(password, user.password);
+            if(validPass){
+                const token = jwt.sign({email: user.email}, process.env.SECRET_KEY);
+                res.status(200).send({token: token});
+            }else{
+                res.status(400).send("invalid password");
+            }
+        }else{
+            res.status(400).send("user not found");
+        }
     }catch(err){
         res.status(400).send("not sign in");
     }
