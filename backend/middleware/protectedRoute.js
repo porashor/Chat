@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
 export const protectedRoute = (req, res, next) => {
     const token = req.cookies.token;
+    if(token.length === 0){
+        res.status(401).send("Unauthorized");
+    }else{
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     console.log(decoded);
     req.email = decoded.email;
@@ -8,5 +11,5 @@ export const protectedRoute = (req, res, next) => {
         next();
     }else{
         res.status(401).send("Unauthorized");
-    }
+    }}
 }

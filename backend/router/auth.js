@@ -6,8 +6,13 @@ import { protectedRoute } from "../middleware/protectedRoute.js";
 const app = express.Router();
 
 
-app.get("/", async (req, res) => {
-    res.send("login route");
+app.get("/",protectedRoute , async (req, res) => {
+    try {
+        const respo = await User.find();
+        res.status(200).json(respo);
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 app.post("/sign", async (req, res) => {
@@ -71,6 +76,11 @@ app.get("/user", protectedRoute, async (req, res) => {
     }catch(err){
         res.status(400).send("not sign in");
     }
+})
+
+app.get("/logout", (req, res) => {
+    res.cookie("token", "", {httpOnly: true});
+    res.status(200).send("logout");
 })
 
 
