@@ -11,8 +11,15 @@ mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log('MongoDB connected'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
+// cors options 
+const corsOptions = {
+  origin: ['http://localhost:5173', 'https://chatherenow.netlify.app/'], // allowed origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true, // allow cookies/auth headers
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
