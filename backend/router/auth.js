@@ -31,14 +31,16 @@ app.post("/sign", async (req, res) => {
             email: email,
             password: hashedPass
         });
+        console.log(user)
         if(!user){
             res.status(400).send("user not created");
         }else{
-            const token = jwt.sign({email: user.email}, process.env.SECRET_KEY);
-            res.cookie("token", token, {httpOnly: true});
+            const token = jwt.sign({email: user.email}, process.env.SECRET_KEY, {expiresIn: "30d"});
+            res.cookie("token", token, {httpOnly: true, sameSite: "strict", secure: true});
             res.status(200).send({token: token});
         }
     }catch(err){
+        console.log(err);
         res.status(400).send("not sign in");
     }
 })

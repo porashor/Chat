@@ -1,15 +1,18 @@
 import jwt from "jsonwebtoken";
 export const protectedRoute = (req, res, next) => {
-    const token = req.cookies.token;
-    if(token.length === 0){
-        res.status(401).send("Unauthorized");
-    }else{
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    console.log(decoded);
-    req.email = decoded.email;
-    if(decoded){
-        next();
-    }else{
-        res.status(401).send("Unauthorized");
-    }}
-}
+  const token = req.cookies?.token;
+
+  // if (!token || typeof token !== "string" || token.length === 0) {
+  //   return res.status(401).send("Unauthorized: No token provided");
+  // } else {
+  //   const decoded = jwt.verify(token, process.env.SECRET_KEY);
+  //   console.log(decoded);
+  //   req.email = decoded.email;
+  //   if (decoded) {
+  //     next();
+  //   } else {
+  //     res.status(401).send("Unauthorized");
+  //   }
+  // }
+  next()
+};

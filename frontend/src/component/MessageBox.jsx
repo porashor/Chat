@@ -1,8 +1,10 @@
 import React from 'react'
 import MsgWelcome from './MsgWelcome'
 import { BiSend } from 'react-icons/bi'
-
+import { msgfunc } from '../Store/ZustandStore'
 const MessageBox = () => {
+  const {person} = msgfunc()
+  console.log(person)
   return (
     <div className='w-full lg:w-[68%] bg-slate-800 rounded-xl py-3 md:py-10 px-2 text-white md:px-5 min-h-screen h-screen overflow-hidden'>
       {/* conditional load  */}
@@ -12,13 +14,13 @@ const MessageBox = () => {
       <div className='w-full h-full flex flex-col items-center justify-between'>
         {/* user intro  */}
         <div className='w-full flex items-center gap-2 border-b pb-5 border-slate-700 shadow-xl'>
-            <div className='w-[30px] aspect-square bg-[#1A535C] text-white rounded-full flex items-center justify-center'>a</div>
+            <div className='w-[30px] aspect-square bg-[#1A535C] text-white rounded-full flex items-center justify-center'>{person.name.charAt(0)}</div>
             <h1>
-                user
+                {person.name}
             </h1>
         </div>
         {/* message  */}
-        <div className='w-full h-full flex items-center justify-center text-2xl font-bold'>
+        <div className='w-full h-full flex items-center justify-center text-2xl font-bold overflow-y-auto'>
           Welcome to new Chat!
         </div>
         {/* sending process  */}
