@@ -3,19 +3,19 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../schema/authSchema.js";
 import { protectedRoute } from "../middleware/protectedRoute.js";
-const app = express.Router();
+const router = express.Router();
 
 
-app.get("/",protectedRoute , async (req, res) => {
+router.get("/",protectedRoute , async (req, res) => {
     try {
-        const respo = await User.find();
+        const respo = await User.find({ email: { $ne: req.email } });
         res.status(200).json(respo);
     } catch (error) {
         console.log(error);
     }
 })
 
-app.post("/sign", async (req, res) => {
+router.post("/sign", async (req, res) => {
     const {name, email, password} = req.body;
     try{
         const salt = await bcrypt.genSalt(10);
@@ -36,7 +36,7 @@ app.post("/sign", async (req, res) => {
             res.status(400).send("user not created");
         }else{
             const token = jwt.sign({email: user.email}, process.env.SECRET_KEY, {expiresIn: "30d"});
-            res.cookie("token", token, {httpOnly: true, sameSite: "strict", secure: true});
+            res.cookie("token", token, {httpOnly: true, sameSite: "Lax", secure: false, path: "/"});
             res.status(200).send({token: token});
         }
     }catch(err){
@@ -45,7 +45,7 @@ app.post("/sign", async (req, res) => {
     }
 })
 
-app.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
     const { email, password} = req.body;
     try{
         const user = await User.findOne({
@@ -55,7 +55,7 @@ app.post("/login", async (req, res) => {
             const validPass = await bcrypt.compare(password, user.password);
             if(validPass){
                 const token = jwt.sign({email: user.email}, process.env.SECRET_KEY);
-                res.cookie("token", token, {httpOnly: true});
+                res.cookie("token", token, {httpOnly: true, sameSite: "Lax", secure: false, path: "/"});
                 res.status(200).send({token: token});
             }else{
                 res.status(400).send("invalid password");
@@ -68,7 +68,7 @@ app.post("/login", async (req, res) => {
     }
 })
 
-app.get("/user", protectedRoute, async (req, res) => {
+router.get("/user", protectedRoute, async (req, res) => {
     try{
         const email = req.email;
         const user = await User.findOne({
@@ -80,10 +80,15 @@ app.get("/user", protectedRoute, async (req, res) => {
     }
 })
 
-app.get("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
     res.cookie("token", "", {httpOnly: true});
     res.status(200).send("logout");
 })
 
+router.use((req, res, next) => {
+  console.log('Global req.cookies auth:', req.cookies);
+  next();
+});
 
-export default app;
+
+export default router;

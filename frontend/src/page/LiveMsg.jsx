@@ -1,9 +1,9 @@
 import React, { useEffect  } from 'react'
 import UserList from '../component/UserList'
-import MessageBox from '../component/MessageBox'
-
+import LiveMsgBox from '../component/LiveMsgBox'
 import { msgfunc } from '../Store/ZustandStore'
-const Home = () => {
+
+const LiveMsg = () => {
   const {person, me, onMe} = msgfunc()
     useEffect(() => {
       onMe()
@@ -18,10 +18,10 @@ const Home = () => {
       {/* main message section loading here  */}
       <div className='flex gap-5 flex-wrap'>
         <UserList/>
-        <MessageBox person={person} me={me}/>
+        <LiveMsgBox person={person} me={me}/>
       </div>
     </div>
   )
 }
 
-export default Home
+export default LiveMsg

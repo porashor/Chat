@@ -21,18 +21,17 @@ export const formFunction = create((set) => ({
     onPassword: (v) => set({ password: v }),
 
     LogInNow: (v) => async () => {
-        console.log("called")
         set({loginLoading: true})
         try {
             const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(v),
             })
             const data = await res.json()
-            console.log(data)
             set({name: '', email: '', password: ''})
             toast.success(data.message)
         } catch (error) {
@@ -54,7 +53,6 @@ export const formFunction = create((set) => ({
                 body: JSON.stringify(formData),
             })
             const data = await res.json()
-            console.log(data);
             set({feedback: data})
             set({name: '', email: '', password: ''})
             toast.success("successfully sign in")
@@ -96,9 +94,9 @@ export const userListing = create((set) => ({
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
             })
             const data = await res.json()
-            console.log(data);
             set({user: data})
         } catch (error) {
             console.log(error);
@@ -117,7 +115,6 @@ export const userListing = create((set) => ({
                 },
             })
             const data = await res.json()
-            console.log(data);
             set({profile: data})
         } catch (error) {
             console.log(error);
@@ -132,7 +129,21 @@ export const msgfunc = create((set)=>({
     person: {},
     me: {},
     onPerson: (v) => set({person: v }),
-    onMe: (v) => set({ me: v }),    
+    onMe: async() => {
+        try {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/user`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            })
+            const data = await res.json()
+            set({me: data})
+        } catch (error) {
+            console.log(error);
+        }
+    },    
 }))
 
 
