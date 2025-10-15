@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import socket from "../socket/socket";
+import socket from "../socket/socket.jsx";
 
 
 export const liveStore = create((set) => ({
