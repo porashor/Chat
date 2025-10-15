@@ -18,7 +18,7 @@ const Appserver = http.createServer(app);
 // socket setup here 
 const io = new Server(Appserver, {
   cors: {
-    origin: ['http://localhost:5173', 'https://chatherenow.netlify.app/'],
+    origin: ['http://localhost:5173', 'https://chatherenow.netlify.app/', 'https://chat-xuk2.onrender.com/'],
     methods: ['GET', 'POST']
   }
 });
