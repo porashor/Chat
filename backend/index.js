@@ -84,7 +84,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 // cors options 
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://chatherenow.netlify.app/'], 
+  origin: ['http://localhost:5173', 'https://chatherenow.netlify.app/', 'https://chat-xuk2.onrender.com/'], 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // allow cookies/auth headers
   allowedHeaders: ['Content-Type', 'Authorization'],
