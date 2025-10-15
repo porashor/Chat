@@ -13,8 +13,6 @@ const MessageBox = ({person, me}) => {
   useEffect(() => {
     messageget({person: person._id, me: me._id})
   }, [person])
-  console.log(message);
-  console.log(person._id);
 
   return (
     <div className='w-full lg:w-[68%] bg-slate-800 rounded-xl py-3 md:py-10 px-2 text-white md:px-5 min-h-screen h-screen overflow-hidden'>

@@ -1,8 +1,6 @@
-import React from 'react'
 import LogIn from './LogIn'
 import { popupZus } from '../Store/ZustandStore'
 import SignIn from './SignIn'
-import { Link } from 'react-router-dom'
 const Nav = () => {
     const {onLogin, onSign} = popupZus()
   return (
@@ -18,7 +16,6 @@ const Nav = () => {
             <button>Profile</button>
             <LogIn/>
             <SignIn/>
-            <Link to='/live'>live</Link>
         </div>
     </nav>
   )

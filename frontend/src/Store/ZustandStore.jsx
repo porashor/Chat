@@ -33,7 +33,7 @@ export const formFunction = create((set) => ({
             })
             const data = await res.json()
             set({name: '', email: '', password: ''})
-            toast.success(data.message)
+            toast.success('log in successfully')
         } catch (error) {
             console.log(error);
             toast.error(error.message)

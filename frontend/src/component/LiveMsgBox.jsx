@@ -1,7 +1,6 @@
 import React, {useEffect, useState } from 'react'
 import MsgWelcome from './MsgWelcome'
 import { BiSend } from 'react-icons/bi'
-import {messager} from "../Store/Message"
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import { liveStore } from '../Store/liveStore'
 
@@ -14,7 +13,6 @@ const LiveMsgBox = ({person, me}) => {
 useEffect(() => {
  getmessage({ person: person._id, me: me._id });
 }, [person._id, me._id]);
-  console.log(live);
 
   return (
     <div className='w-full lg:w-[68%] bg-slate-800 rounded-xl py-3 md:py-10 px-2 text-white md:px-5 min-h-screen h-screen overflow-hidden'>

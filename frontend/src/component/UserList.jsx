@@ -3,8 +3,8 @@ import {userListing, msgfunc} from '../Store/ZustandStore'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 
 const UserList = () => {
-  const {user, profile, userloading, profileloading, userListGet, getProfileData} = userListing()
-  const {me, onPerson} = msgfunc()
+  const {user, userloading, userListGet, getProfileData} = userListing()
+  const {onPerson} = msgfunc()
 
   useEffect(() => {
     userListGet()

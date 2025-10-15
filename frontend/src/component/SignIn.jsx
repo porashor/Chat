@@ -8,7 +8,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 const SignIn = () => {
 
     const {signopen, onLogin, onSign} = popupZus()
-    const {name, email, password, loginLoading, singinLoading, feedback, onName, onEmail, onPassword, LogInNow, SignInNow, logOut} = formFunction()
+    const {name, email, password,  singinLoading,  onName, onEmail, onPassword, LogInNow, SignInNow, logOut} = formFunction()
     const signupNow = (e)=>{
       e.preventDefault()
       SignInNow({name,email,password})

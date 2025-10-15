@@ -16,7 +16,6 @@ export const messager = create((set) => ({
                 body: JSON.stringify(v),
             })
             const data = await res.json()
-            console.log(data);
             set({ message: data })
         } catch (error) {
             console.log(error);
@@ -35,7 +34,6 @@ export const messager = create((set) => ({
             })
             const data = await res.json()
             set({message: res})
-            console.log(data);
         } catch (error) {
             console.log(error);
         }
