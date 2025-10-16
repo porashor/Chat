@@ -51,6 +51,7 @@ export const formFunction = create((set) => ({
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
+                credentials: 'include',
             })
             const data = await res.json()
             set({feedback: data})
@@ -71,6 +72,7 @@ export const formFunction = create((set) => ({
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
             })
             toast.success("log out success")
         } catch (error) {
@@ -113,6 +115,7 @@ export const userListing = create((set) => ({
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
             })
             const data = await res.json()
             set({profile: data})
