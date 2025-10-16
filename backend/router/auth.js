@@ -36,7 +36,7 @@ router.post("/sign", async (req, res) => {
             res.status(400).send("user not created");
         }else{
             const token = jwt.sign({email: user.email}, process.env.SECRET_KEY, {expiresIn: "30d"});
-            res.cookie("token", token, {httpOnly: true, sameSite: "none", secure: false, path: "/"});
+            res.cookie("token", token, {httpOnly: true, sameSite: "none", secure: true, path: "/"});
             res.status(200).send({token: token});
         }
     }catch(err){
@@ -55,7 +55,7 @@ router.post("/login", async (req, res) => {
             const validPass = await bcrypt.compare(password, user.password);
             if(validPass){
                 const token = jwt.sign({email: user.email}, process.env.SECRET_KEY);
-                res.cookie("token", token, {httpOnly: true, sameSite: "none", secure: false, path: "/"});
+                res.cookie("token", token, {httpOnly: true, sameSite: "none", secure: true, path: "/"});
                 res.status(200).send({token: token});
             }else{
                 res.status(400).send("invalid password");
