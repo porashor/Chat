@@ -3,9 +3,10 @@ import MsgWelcome from './MsgWelcome'
 import { BiSend } from 'react-icons/bi'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import { liveStore } from '../Store/liveStore'
+import { BiLeftArrow } from 'react-icons/bi'
 
 
-const LiveMsgBox = ({person, me}) => {
+const LiveMsgBox = ({onPerson, person, me}) => {
   const [text, setText] = useState('')
   const {live, liveLoading,getmessage, sendMessage} = liveStore()
   // const {msgloading, message, sendmessage, messageget} = messager()
@@ -15,8 +16,10 @@ useEffect(() => {
 }, [person._id, me._id]);
 
   return (
-    <div className='w-full lg:w-[68%] bg-slate-800 rounded-xl py-3 md:py-10 px-2 text-white md:px-5 min-h-screen h-screen overflow-hidden'>
+    <div className={`${!person._id ? "hidden lg:block" : "block"} w-full lg:w-[68%] bg-slate-800 rounded-xl py-3 md:py-10 px-2 text-white md:px-5 min-h-screen h-screen overflow-hidden`}>
       {/* conditional load  */}
+      
+      <BiLeftArrow onClick={()=>onPerson({})} className='text-xl lg:hidden bg-black text-white'/>
       {!person._id? <>
       <MsgWelcome/>
       </> : <>

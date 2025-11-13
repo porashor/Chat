@@ -4,7 +4,7 @@ import LiveMsgBox from '../component/LiveMsgBox'
 import { msgfunc } from '../Store/ZustandStore'
 
 const LiveMsg = () => {
-  const {person, me, onMe} = msgfunc()
+  const {onPerson, person, me, onMe} = msgfunc()
     useEffect(() => {
       onMe()
     }, [])
@@ -18,7 +18,7 @@ const LiveMsg = () => {
       {/* main message section loading here  */}
       <div className='flex gap-5 flex-wrap'>
         <UserList/>
-        <LiveMsgBox person={person} me={me}/>
+        <LiveMsgBox onPerson={onPerson} person={person} me={me}/>
       </div>
     </div>
   )
